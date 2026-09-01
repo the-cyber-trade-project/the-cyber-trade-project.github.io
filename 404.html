@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | The Cybersecurity Trade Project</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 40px 30px;
+      max-width: 540px;
+      width: 100%;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #334155;
+      color: #38bdf8;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+      text-align: left;
+    }
+    .grid-link {
+      display: block;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-decoration: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .grid-link:hover {
+      border-color: #38bdf8;
+      background: #1e293b;
+    }
+    .grid-title {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #38bdf8;
+      margin-bottom: 4px;
+    }
+    .grid-desc {
+      display: block;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.3;
+    }
+    .footer-note {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .footer-note a {
+      color: #94a3b8;
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+
+      // Handle legacy redirect routes
+      if (path.indexOf("/cyber-trade-estimator") === 0) {
+        var query = search ? search + "&src=legacy_redirect" : "?src=legacy_redirect";
+        window.location.replace("https://the-cyber-trade-project.github.io/estimator/" + query + hash);
+        return;
+      }
+      if (path.indexOf("/cyber-trade-logbook") === 0) {
+        var query = search ? search + "&src=legacy_redirect" : "?src=legacy_redirect";
+        window.location.replace("https://the-cyber-trade-project.github.io/logbook/" + query + hash);
+        return;
+      }
+      if (path.indexOf("/the-cyber-trade-project") === 0) {
+        var remainder = path.replace(/^\/the-cyber-trade-project/, "");
+        if (!remainder || remainder === "/") {
+          remainder = "/";
+        }
+        var query = search ? search + "&src=legacy_redirect" : "?src=legacy_redirect";
+        window.location.replace("https://the-cyber-trade-project.github.io/framework" + remainder + query + hash);
+        return;
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">Ecosystem Router</div>
+    <h1>404: Resource Relocated or Not Found</h1>
+    <p>The requested URL does not exist or has moved under our updated organization structure. Select a destination below to proceed.</p>
+
+    <div class="links-grid">
+      <a href="https://the-cyber-trade-project.github.io/framework/" class="grid-link">
+        <span class="grid-title">Framework Portal</span>
+        <span class="grid-desc">Core architecture, pillars, and governance</span>
+      </a>
+      <a href="https://the-cyber-trade-project.github.io/estimator/" class="grid-link">
+        <span class="grid-title">Career Estimator</span>
+        <span class="grid-desc">PLA hours, grandfathering, and wage steps</span>
+      </a>
+      <a href="https://the-cyber-trade-project.github.io/logbook/" class="grid-link">
+        <span class="grid-title">Digital Logbook</span>
+        <span class="grid-desc">Cryptographic runtime attestation PWA</span>
+      </a>
+      <a href="https://the-cyber-trade-project.github.io/clearinghouse/" class="grid-link">
+        <span class="grid-title">Trade Clearinghouse</span>
+        <span class="grid-desc">NCTB central ingestion and registry</span>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Official Project Repository: <a href="https://github.com/the-cyber-trade-project/framework" target="_blank" rel="noopener noreferrer">github.com/the-cyber-trade-project/framework</a>
+    </div>
+  </div>
+</body>
+</html>
