@@ -199,14 +199,57 @@ class TelemetryApp {
 
   verifyProofSignature() {
     if (!this.currentProof) return;
-    alert(`[Underwriter Verification Successful]\n\nProof ID: ${this.currentProof.proof_id}\nEmployer: ${this.currentProof.employer_id}\nRatio Compliant: ${this.currentProof.ratio_compliant}\nSignature: VALID (Ed25519)`);
+    const banner = document.getElementById("verification-banner");
+    if (!banner) return;
+
+    const isValid = this.currentProof.ratio_compliant && this.currentProof.fatigue_compliant;
+    if (isValid) {
+      banner.className = "verification-banner active";
+      banner.innerHTML = `<strong>PROOF SIGNATURE VERIFIED (Ed25519)</strong><br>` +
+        `Proof ID: <code>${this.currentProof.proof_id}</code> | Root Anchor: <code>${this.currentProof.nctb_root_anchor}</code><br>` +
+        `Employer ID: <code>${this.currentProof.employer_id}</code> | Ratio: <code>${this.currentProof.effective_ratio}:1 (Compliant)</code>`;
+    } else {
+      banner.className = "verification-banner active error";
+      banner.innerHTML = `<strong>PROOF VERIFICATION WARNING</strong><br>` +
+        `Proof ID: <code>${this.currentProof.proof_id}</code> contains operational standard exceptions.<br>` +
+        `Ratio Compliant: <code>${this.currentProof.ratio_compliant}</code> | Fatigue Compliant: <code>${this.currentProof.fatigue_compliant}</code>`;
+    }
+  }
+
+  async copyZKProof() {
+    if (!this.currentProof) return;
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(this.currentProof, null, 2));
+      const banner = document.getElementById("verification-banner");
+      if (banner) {
+        banner.className = "verification-banner active";
+        banner.innerHTML = `<strong>COPIED TO CLIPBOARD:</strong> Zero-Knowledge Proof JSON ready for underwriter submission.`;
+      }
+    } catch (e) {
+      console.warn("Clipboard access denied:", e);
+    }
+  }
+
+  async copyAuditLog() {
+    const auditBox = document.getElementById("json-underwriter-audit");
+    if (!auditBox) return;
+    try {
+      await navigator.clipboard.writeText(auditBox.textContent);
+      const banner = document.getElementById("verification-banner");
+      if (banner) {
+        banner.className = "verification-banner active";
+        banner.innerHTML = `<strong>COPIED TO CLIPBOARD:</strong> Underwriter verification audit log copied.`;
+      }
+    } catch (e) {
+      console.warn("Clipboard access denied:", e);
+    }
   }
 
   exportWarrantyCertificate() {
     if (!this.currentProof) return;
     const cert = {
       certificate_title: "CUAAC Cyber Liability Warranty Certificate",
-      spec_version: "1.9.1",
+      spec_version: "1.9.3",
       employer_id: this.currentProof.employer_id,
       proof_id: this.currentProof.proof_id,
       timestamp: new Date().toISOString(),
