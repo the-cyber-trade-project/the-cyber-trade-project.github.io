@@ -97,19 +97,26 @@
   </style>
   <script>
     (function() {
-      var path = window.location.pathname;
+      var path = window.location.pathname.toLowerCase();
       var search = window.location.search;
       var hash = window.location.hash;
+      var query = search ? search : "";
 
-      // Handle legacy redirect routes
+      // 1. Legacy Repository Path Redirects
       if (path.indexOf("/cyber-trade-estimator") === 0) {
-        var query = search ? search + "&src=legacy_redirect" : "?src=legacy_redirect";
         window.location.replace("https://the-cyber-trade-project.github.io/estimator/" + query + hash);
         return;
       }
       if (path.indexOf("/cyber-trade-logbook") === 0) {
-        var query = search ? search + "&src=legacy_redirect" : "?src=legacy_redirect";
         window.location.replace("https://the-cyber-trade-project.github.io/logbook/" + query + hash);
+        return;
+      }
+      if (path.indexOf("/cyber-trade-clearinghouse") === 0) {
+        window.location.replace("https://the-cyber-trade-project.github.io/clearinghouse/" + query + hash);
+        return;
+      }
+      if (path.indexOf("/cyber-trade-telemetry") === 0) {
+        window.location.replace("https://the-cyber-trade-project.github.io/telemetry/" + query + hash);
         return;
       }
       if (path.indexOf("/the-cyber-trade-project") === 0) {
@@ -117,9 +124,51 @@
         if (!remainder || remainder === "/") {
           remainder = "/";
         }
-        var query = search ? search + "&src=legacy_redirect" : "?src=legacy_redirect";
         window.location.replace("https://the-cyber-trade-project.github.io/framework" + remainder + query + hash);
         return;
+      }
+
+      // 2. Vanity / Shorthand Route Redirects
+      var segment = path.replace(/^\/+|\/+$/g, "").split("/")[0];
+      
+      var vanityMap = {
+        "calculator": "https://the-cyber-trade-project.github.io/estimator/",
+        "pla": "https://the-cyber-trade-project.github.io/estimator/",
+        "tier": "https://the-cyber-trade-project.github.io/estimator/",
+        "estimate": "https://the-cyber-trade-project.github.io/estimator/",
+        "placement": "https://the-cyber-trade-project.github.io/estimator/",
+
+        "ledger": "https://the-cyber-trade-project.github.io/logbook/",
+        "pwa": "https://the-cyber-trade-project.github.io/logbook/",
+        "hours": "https://the-cyber-trade-project.github.io/logbook/",
+        "log": "https://the-cyber-trade-project.github.io/logbook/",
+        "vault": "https://the-cyber-trade-project.github.io/logbook/",
+
+        "registry": "https://the-cyber-trade-project.github.io/clearinghouse/",
+        "dispatch": "https://the-cyber-trade-project.github.io/clearinghouse/",
+        "hall": "https://the-cyber-trade-project.github.io/clearinghouse/",
+        "fifo": "https://the-cyber-trade-project.github.io/clearinghouse/",
+        "out-of-work": "https://the-cyber-trade-project.github.io/clearinghouse/",
+
+        "telemetry": "https://the-cyber-trade-project.github.io/telemetry/",
+        "underwriter": "https://the-cyber-trade-project.github.io/telemetry/",
+        "insurance": "https://the-cyber-trade-project.github.io/telemetry/",
+        "actuary": "https://the-cyber-trade-project.github.io/telemetry/",
+        "warranty": "https://the-cyber-trade-project.github.io/telemetry/",
+
+        "docs": "https://the-cyber-trade-project.github.io/framework/",
+        "pillars": "https://the-cyber-trade-project.github.io/framework/pillars/01_pre-apprenticeship.html",
+        "governance": "https://the-cyber-trade-project.github.io/framework/governance/board-structure.html",
+        "standards": "https://the-cyber-trade-project.github.io/framework/framework/standards-and-compliance.html",
+        "spec": "https://the-cyber-trade-project.github.io/framework/",
+        "faq": "https://the-cyber-trade-project.github.io/framework/FAQ.html",
+        "glossary": "https://the-cyber-trade-project.github.io/framework/GLOSSARY.html",
+        "contributing": "https://the-cyber-trade-project.github.io/framework/CONTRIBUTING.html",
+        "rfcs": "https://the-cyber-trade-project.github.io/framework/rfcs/"
+      };
+
+      if (vanityMap[segment]) {
+        window.location.replace(vanityMap[segment] + query + hash);
       }
     })();
   </script>
