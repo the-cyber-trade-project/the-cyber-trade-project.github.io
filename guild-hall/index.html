@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Craft Guild (CCG) - Dispatch Hall &amp; Placement Operations</title>
+  <meta name="description" content="Cybersecurity Craft Guild (CCG) Dispatch Hall, Out-of-Work Queue, and Placement Management Portal.">
+
+  <!-- Defensive Security & Content Protection Directives -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="portal-header">
+    <div class="portal-header-inner">
+      <a href="https://the-cyber-trade-project.github.io/framework/" class="portal-brand">
+        <span class="portal-brand-title">The Cybersecurity Trade Project</span>
+      </a>
+      <div class="portal-header-tools">
+        <div class="dropdown">
+          <button class="tool-link dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+            <span>Trade Project Router</span>
+            <span class="dropdown-arrow">▾</span>
+          </button>
+          <div class="dropdown-menu">
+            <a href="https://the-cyber-trade-project.github.io/framework/" class="dropdown-item">
+              <span class="item-title">Documentation Portal</span>
+              <span class="item-desc">Explore framework &amp; governance</span>
+            </a>
+            <a href="https://the-cyber-trade-project.github.io/estimator/" class="dropdown-item">
+              <span class="item-title">Career Estimator</span>
+              <span class="item-desc">Calculate trade tier &amp; PLA hours</span>
+            </a>
+            <a href="https://the-cyber-trade-project.github.io/logbook/" class="dropdown-item">
+              <span class="item-title">Digital Logbook</span>
+              <span class="item-desc">Cryptographic runtime attestation PWA</span>
+            </a>
+            <a href="https://the-cyber-trade-project.github.io/clearinghouse/" class="dropdown-item">
+              <span class="item-title">Trade Clearinghouse</span>
+              <span class="item-desc">Central ingestion &amp; credential registry</span>
+            </a>
+            <a href="https://the-cyber-trade-project.github.io/telemetry/" class="dropdown-item">
+              <span class="item-title">Telemetry Gateway</span>
+              <span class="item-desc">Zero-knowledge underwriter ratio attestation</span>
+            </a>
+            <a href="https://the-cyber-trade-project.github.io/guild-hall/" class="dropdown-item active">
+              <span class="item-title">Guild Dispatch Hall</span>
+              <span class="item-desc">Craft Guild out-of-work registers &amp; placement</span>
+            </a>
+          </div>
+        </div>
+        <a href="https://the-cyber-trade-project.github.io/framework/CONTRIBUTING.html" class="tool-link tool-link-contribute">
+          <span>Contributing &amp; RFCs</span>
+        </a>
+        <a href="https://github.com/the-cyber-trade-project/framework/discussions" target="_blank" rel="noopener noreferrer" class="tool-link">
+          <span>Discussions</span>
+        </a>
+        <a href="https://github.com/the-cyber-trade-project/framework" target="_blank" rel="noopener noreferrer" class="tool-link">
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Title Banner -->
+  <div class="page-title-banner">
+    <div class="container page-title-inner">
+      <div>
+        <h1>Cybersecurity Craft Guild Dispatch Hall</h1>
+        <p class="subtitle">Pillar VI: Out-of-Work Registers, First-In, First-Out (FIFO) Seniority, Modality Routing &amp; Neutral Referral Desk.</p>
+      </div>
+      <div class="registry-status-badge">
+        <span class="status-dot"></span>
+        <span>CCG DISPATCH STATUS: ACTIVE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-Side Sandbox Notice Banner -->
+  <div class="sandbox-notice">
+    <div class="container">
+      <strong style="color:var(--accent-cyan);">CLIENT-SIDE DEMONSTRATION SANDBOX:</strong> Bilateral requisition matching, queue aging alerts, and referral slip generation compute locally in browser memory. Standalone Python backend engine available in repository.
+    </div>
+  </div>
+  <div class="layout" style="margin-top:1.5rem;">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-badge">CCG</div>
+        <div class="logo-text">
+          <h1>Craft Guild Dispatch</h1>
+          <span>Labor Operations &amp; Placement</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#dispatch-queue" class="nav-item active" data-tab="dispatch-queue">
+          <span class="nav-label">Out-of-Work Registers</span>
+          <span class="nav-badge" id="badge-queue-count">0</span>
+        </a>
+        <a href="#requisitions" class="nav-item" data-tab="requisitions">
+          <span class="nav-label">Employer Requisitions</span>
+          <span class="nav-badge" id="badge-req-count">0</span>
+        </a>
+        <a href="#referral-workbench" class="nav-item" data-tab="referral-workbench">
+          <span class="nav-label">Dispatch Officer Workbench</span>
+        </a>
+        <a href="#referral-history" class="nav-item" data-tab="referral-history">
+          <span class="nav-label">Referral Slips Issued</span>
+          <span class="nav-badge" id="badge-slip-count">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="footer-status">
+          <span class="status-indicator active"></span>
+          <span>NCTB Clearinghouse Sync: Active</span>
+        </div>
+        <div class="version-tag">CCG Dispatch Portal v0.1.0</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h2 id="current-tab-title">Out-of-Work Registers &amp; FIFO Dispatch Hall</h2>
+          <p id="current-tab-desc">Pillar VI: Neutral bilateral hiring queue enforcing FIFO chronological seniority without recruiter bypass.</p>
+        </div>
+        <div class="top-actions">
+          <button class="btn btn-secondary btn-sm" onclick="window.app.loadData()">Sync Registry</button>
+          <button class="btn btn-primary btn-sm" onclick="window.app.openRequisitionModal()">+ New Requisition</button>
+        </div>
+      </header>
+
+      <section id="tab-dispatch-queue" class="tab-pane active">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3>Registered Out-of-Work Talent (FIFO Seniority Queue)</h3>
+            <div class="controls-row">
+              <select id="filter-local" class="input-sm" onchange="window.app.filterQueue()">
+                <option value="ALL">All Regional Locals</option>
+                <option value="LOCAL-101">Local 101 - Mid-Atlantic</option>
+                <option value="LOCAL-204">Local 204 - Midwest</option>
+                <option value="LOCAL-302">Local 302 - Western</option>
+                <option value="LOCAL-415">Local 415 - Southern</option>
+              </select>
+              <select id="filter-book" class="input-sm" onchange="window.app.filterQueue()">
+                <option value="ALL">All Dispatch Books</option>
+                <option value="Book 1 (Resident)">Book 1 (Resident Local)</option>
+                <option value="Book 2 (Regional)">Book 2 (Regional District)</option>
+                <option value="Book 3 (National)">Book 3 (National Traveler)</option>
+              </select>
+              <select id="filter-tier" class="input-sm" onchange="window.app.filterQueue()">
+                <option value="ALL">All License Tiers</option>
+                <option value="Tier 1 Apprentice">Tier 1 Apprentice (50%)</option>
+                <option value="Tier 2 Apprentice">Tier 2 Apprentice (60%)</option>
+                <option value="Tier 3 Apprentice">Tier 3 Apprentice (70%)</option>
+                <option value="Tier 4 Apprentice">Tier 4 Apprentice (80%)</option>
+                <option value="Licensed Journeyman">Licensed Journeyman (100%)</option>
+                <option value="Master Practitioner">Master Practitioner (MoR)</option>
+              </select>
+              <select id="filter-modality" class="input-sm" onchange="window.app.filterQueue()">
+                <option value="ALL">All Modalities</option>
+                <option value="Remote Only">Remote Only</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="On-Site Only">On-Site Only</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>FIFO Rank</th>
+                  <th>Practitioner</th>
+                  <th>License Tier</th>
+                  <th>Assigned Local</th>
+                  <th>Dispatch Book</th>
+                  <th>Days on Queue</th>
+                  <th>Modality &amp; Clearance</th>
+                  <th>Verified Hours</th>
+                  <th>Action</th>
+                </tr>
+      <section id="tab-requisitions" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3>PEC Participating Employer Labor Demands</h3>
+            <span class="card-subtitle">Official requisitions awaiting Guild Dispatch Officer review and matching.</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Requisition ID</th>
+                  <th>Employer</th>
+                  <th>Target Local</th>
+                  <th>Required Tier &amp; Endorsement</th>
+                  <th>Modality &amp; Clearance</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="requisitions-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-referral-workbench" class="tab-pane">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3>Guild Dispatch Officer Referral Desk</h3>
+            <span class="card-subtitle">Neutral bilateral verification matching FIFO candidate seniority to employer requisitions.</span>
+          </div>
+          <div class="card-body">
+            <div class="workbench-grid" style="display:grid; grid-template-columns: 1fr 1.5fr; gap: 20px;">
+              <div class="workbench-panel">
+                <h4>1. Select Pending Requisition</h4>
+                <select id="workbench-requisition-select" class="input-full mb-3" onchange="window.app.loadWorkbenchRequisition()" style="width:100%; padding:8px; border-radius:6px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);">
+                  <option value="">-- Choose Requisition to Evaluate --</option>
+                </select>
+                <div id="workbench-req-details" class="info-box" style="display:none; padding:12px; background:rgba(0,0,0,0.2); border:1px solid var(--border-color); border-radius:6px;"></div>
+              </div>
+
+              <div class="workbench-panel">
+                <h4>2. Evaluated FIFO Candidates</h4>
+                <div id="workbench-alerts" class="alert-box mb-2" style="display:none; padding:10px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:6px; color:#fca5a5;"></div>
+                <div id="workbench-candidates-list" class="candidate-match-list">
+                  <p class="text-muted">Select a requisition on the left to evaluate matching candidates.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+              </thead>
+      <section id="tab-referral-history" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3>Bilateral Dispatch Referral Slips</h3>
+            <span class="card-subtitle">Official referral orders issued by Guild Dispatch Officers to PEC employers.</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Referral ID</th>
+                  <th>Requisition</th>
+                  <th>Employer</th>
+                  <th>Dispatched Worker</th>
+                  <th>License Tier</th>
+                  <th>Wage Step %</th>
+                  <th>Dispatch Officer</th>
+                  <th>Date Issued</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="slips-tbody"></tbody>
+            </table>
+  <div id="modal-requisition" class="modal-backdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); align-items:center; justify-content:center; z-index:1000;">
+    <div class="modal-content" style="background:var(--bg-surface); padding:24px; border-radius:10px; max-width:600px; width:100%; border:1px solid var(--border-color);">
+      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3>Submit PEC Employer Labor Requisition</h3>
+        <button class="modal-close" onclick="window.app.closeRequisitionModal()" style="background:none; border:none; color:var(--text-muted); font-size:24px; cursor:pointer;">&times;</button>
+      </div>
+      <form id="form-requisition" onsubmit="window.app.handleRequisitionSubmit(event)">
+        <div style="margin-bottom:12px;">
+          <label style="display:block; margin-bottom:4px; font-size:12px;">PEC Employer</label>
+          <select id="modal-pec-id" class="input-full" required style="width:100%; padding:8px; border-radius:6px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);">
+            <option value="PEC-EMP-2026-0001">PEC-EMP-2026-0001: Apex Defense Systems (Div 1)</option>
+            <option value="PEC-EMP-2026-0014">PEC-EMP-2026-0014: Vanguard Cyber Trust (Div 1)</option>
+            <option value="PEC-EMP-2026-0038">PEC-EMP-2026-0038: Metro Health Cyber Defense (Div 2)</option>
+            <option value="PEC-EMP-2026-0052">PEC-EMP-2026-0052: Meridian Energy Grid Cyber (Div 1)</option>
+          </select>
+        </div>
+        <div style="display:flex; gap:12px; margin-bottom:12px;">
+          <div style="flex:1;">
+            <label style="display:block; margin-bottom:4px; font-size:12px;">Local</label>
+            <select id="modal-local-id" class="input-full" required style="width:100%; padding:8px; border-radius:6px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);">
+              <option value="LOCAL-101">Local 101 - Mid-Atlantic</option>
+              <option value="LOCAL-204">Local 204 - Midwest</option>
+              <option value="LOCAL-302">Local 302 - Western</option>
+              <option value="LOCAL-415">Local 415 - Southern</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="display:block; margin-bottom:4px; font-size:12px;">Tier</label>
+            <select id="modal-tier" class="input-full" required style="width:100%; padding:8px; border-radius:6px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);">
+              <option value="Tier 1 Apprentice">Tier 1 Apprentice (50%)</option>
+              <option value="Tier 2 Apprentice">Tier 2 Apprentice (60%)</option>
+              <option value="Tier 3 Apprentice">Tier 3 Apprentice (70%)</option>
+              <option value="Tier 4 Apprentice">Tier 4 Apprentice (80%)</option>
+              <option value="Licensed Journeyman">Licensed Journeyman (100%)</option>
+              <option value="Master Practitioner">Master Practitioner (MoR)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; margin-bottom:12px;">
+          <div style="flex:1;">
+            <label style="display:block; margin-bottom:4px; font-size:12px;">Endorsement</label>
+            <select id="modal-endorsement" class="input-full" style="width:100%; padding:8px; border-radius:6px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);">
+              <option value="None">None</option>
+              <option value="SE-APP">SE-APP</option>
+              <option value="SE-CLD">SE-CLD</option>
+              <option value="SE-ICS">SE-ICS</option>
+              <option value="SE-MED">SE-MED</option>
+              <option value="SE-DFIR">SE-DFIR</option>
+              <option value="SE-AIML">SE-AIML</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="display:block; margin-bottom:4px; font-size:12px;">Modality</label>
+            <select id="modal-modality" class="input-full" style="width:100%; padding:8px; border-radius:6px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color);">
+              <option value="Any">Any Modality</option>
+              <option value="Remote Only">Remote Only</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="On-Site Only">On-Site Only</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button type="button" class="btn btn-secondary" onclick="window.app.closeRequisitionModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Post Requisition</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="app.js"></script>
+
+          </div>
+        </div>
+      </section>
+
+              <tbody id="queue-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
